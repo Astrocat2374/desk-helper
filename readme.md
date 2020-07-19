@@ -1,3 +1,3 @@
-#Desk Helper
-##Project Goal
+# Desk Helper
+## Project Goal
 The goal of this project is to provide tool for educators, office workers, and anyone else working in an environment involving personal desks, that is able to consistently calculate the most efficient layout while complying with social distancing standards based on certain parameters. The tool should also let the user know when the layout cannot fit the given amount of desks, as well as showing the user the amount of desks that can. Finally, the interface should be intuitive and uncomplicated, and the output should be easily understood.
