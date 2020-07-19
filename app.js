@@ -63,6 +63,10 @@ function processForm() {
         return minDist * (neededRows() - 1) 
     }
 
+    function neededWidth() {
+        return minDist * (firstRowMax() - 1);
+    }
+
     //----------------------------- Staggered Desk Calculations -----------------------------
 
     //Finds the max amount of desks that can fit in a row while complying with the minimum distance
@@ -173,6 +177,7 @@ function processForm() {
 
         function drawWidthRuler(x) {
             ctx.save();
+            ctx.globalAlpha = 1;
             ctx.moveTo((x * 2), (x * 1));
             ctx.lineTo((x * (2 + cWidth)), (x * 1));
             ctx.moveTo((x * 2), (x * 0.75));
@@ -190,6 +195,7 @@ function processForm() {
 
         function drawLengthRuler(x) {
             ctx.save();
+            ctx.globalAlpha = 1;
             ctx.moveTo((canvas.width - (x * 1)), (x * 6));
             ctx.lineTo((canvas.width - (x * 1)), (x * (6 + cLength)));
             ctx.moveTo((canvas.width - (x * 0.75)), (x * 6));
@@ -218,6 +224,7 @@ function processForm() {
 
         function drawUsedRuler(x) {
             ctx.save();
+            ctx.globalAlpha = 1;
             ctx.moveTo((canvas.width - (x * 2)), (x * 6));
             ctx.lineTo((canvas.width - (x * 2)), (x * (6 + neededLength())));
             ctx.moveTo((canvas.width - (x * 1.75)), (x * 6));
@@ -237,6 +244,7 @@ function processForm() {
 
         function drawRowRuler(x) {
             ctx.save();
+            ctx.globalAlpha = 1;
             ctx.moveTo((canvas.width - (x * 3)), (x * 6));
             ctx.lineTo((canvas.width - (x * 3)), (x * (6 + minDist)));
             ctx.moveTo((canvas.width - (x * 2.75)), (x * 6));
@@ -252,20 +260,40 @@ function processForm() {
             ctx.restore();
         }
 
+        //Draws a ruler showing the width needed for the layout
+
+        function drawNeededWidthRuler(x) {
+            console.log(neededWidth());
+            ctx.save();
+            ctx.globalAlpha = 1;
+            ctx.moveTo((x * 2), (x * 2));
+            ctx.lineTo((x * (2 + neededWidth())), (x * 2));
+            ctx.moveTo((x * 2), (x * 1.75));
+            ctx.lineTo((x * 2), (x * 2.25));
+            ctx.moveTo((x * (2 + neededWidth())), (x * 1.75));
+            ctx.lineTo((x * (2 + neededWidth())), (x * 2.25));
+            ctx.stroke();
+            ctx.font = (x * 0.5) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(neededWidth() + ' ft. (Total Width Needed)', (((neededWidth() / 2) + 2) * x), (x * 1.75));
+            ctx.restore();
+        }
+
         //Draws a ruler showing the distance between desks
 
         function drawDeskRuler(x) {
             ctx.save();
-            ctx.moveTo((x * 2), (x * 2));
-            ctx.lineTo((x * (2 + minDist)), (x * 2));
-            ctx.moveTo((x * 2), (x * 1.75));
-            ctx.lineTo((x * 2), (x * 2.25));
-            ctx.moveTo((x * (2 + minDist)), (x * 1.75));
-            ctx.lineTo((x * (2 + minDist)), (x * 2.25));
+            ctx.globalAlpha = 1;
+            ctx.moveTo((x * 2), (x * 3));
+            ctx.lineTo((x * (2 + minDist)), (x * 3));
+            ctx.moveTo((x * 2), (x * 2.75));
+            ctx.lineTo((x * 2), (x * 3.25));
+            ctx.moveTo((x * (2 + minDist)), (x * 2.75));
+            ctx.lineTo((x * (2 + minDist)), (x * 3.25));
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(minDist + ' ft.', ((((cWidth / (firstRowMax() - 1)) / 2) + 2) * x), (x * 1.75));
+            ctx.fillText(minDist + ' ft.', ((((cWidth / (firstRowMax() - 1)) / 2) + 2) * x), (x * 2.75));
             ctx.restore();
         }
 
@@ -295,6 +323,7 @@ function processForm() {
 
         if (minDesk > 1) {
             drawDeskRuler(setFtSize());
+            drawNeededWidthRuler(setFtSize());
         }
 
         drawUsedRuler(setFtSize());
@@ -307,6 +336,7 @@ function processForm() {
 
         function drawUsedRuler(x) {
             ctx.save();
+            ctx.globalAlpha = 1;
             ctx.moveTo((canvas.width - (x * 2)), (x * 6));
             ctx.lineTo((canvas.width - (x * 2)), (x * (6 + neededLengthStag())));
             ctx.moveTo((canvas.width - (x * 1.75)), (x * 6));
@@ -326,6 +356,7 @@ function processForm() {
 
         function drawRowRuler(x) {
             ctx.save();
+            ctx.globalAlpha = 1;
             ctx.moveTo((canvas.width - (x * 3)), (x * 6));
             ctx.lineTo((canvas.width - (x * 3)), (x * (6 + (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))))));
             ctx.moveTo((canvas.width - (x * 2.75)), (x * 6));
@@ -345,6 +376,7 @@ function processForm() {
 
         function drawStaggerRuler(x) {
             ctx.save();
+            ctx.globalAlpha = 1;
             ctx.moveTo((x * 2), (x * 3));
             ctx.lineTo((x * (2 + (cWidth / (firstRowMaxStag() - 1))) / 2), (x * 3));
             ctx.moveTo((x * 2), (x * 2.75));
@@ -362,6 +394,7 @@ function processForm() {
 
         function drawDeskRuler(x) {
             ctx.save();
+            ctx.globalAlpha = 1;
             ctx.moveTo((x * 2), (x * 2));
             ctx.lineTo((x * (2 + (cWidth / (firstRowMaxStag() - 1)))), (x * 2));
             ctx.moveTo((x * 2), (x * 1.75));
