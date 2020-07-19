@@ -186,23 +186,6 @@ function processForm() {
             ctx.restore();
         }
 
-        //Draws a ruler showing the distance between desks
-
-        function drawDeskRuler(x) {
-            ctx.save();
-            ctx.moveTo((x * 2), (x * 2));
-            ctx.lineTo((x * (2 + (cWidth / (firstRowMaxStag() - 1)))), (x * 2));
-            ctx.moveTo((x * 2), (x * 1.75));
-            ctx.lineTo((x * 2), (x * 2.25));
-            ctx.moveTo((x * (2 + (cWidth / (firstRowMaxStag() - 1)))), (x * 1.75));
-            ctx.lineTo((x * (2 + (cWidth / (firstRowMaxStag() - 1)))), (x * 2.25));
-            ctx.stroke();
-            ctx.font = (x * 0.5) + 'px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText((cWidth / (firstRowMaxStag() - 1)) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 2) + 2) * x), (x * 1.75));
-            ctx.restore();
-        }
-
         //Draws a ruler on the right y-axis which shows the length of the space available
 
         function drawLengthRuler(x) {
@@ -226,10 +209,6 @@ function processForm() {
         resizeCanvas(setFtSize());
         drawWidthRuler(setFtSize());
         drawLengthRuler(setFtSize());
-
-        if (minDesk > 1) {
-            drawDeskRuler(setFtSize());
-        }
 
     }
 
@@ -273,6 +252,23 @@ function processForm() {
             ctx.restore();
         }
 
+        //Draws a ruler showing the distance between desks
+
+        function drawDeskRuler(x) {
+            ctx.save();
+            ctx.moveTo((x * 2), (x * 2));
+            ctx.lineTo((x * (2 + minDist)), (x * 2));
+            ctx.moveTo((x * 2), (x * 1.75));
+            ctx.lineTo((x * 2), (x * 2.25));
+            ctx.moveTo((x * (2 + minDist)), (x * 1.75));
+            ctx.lineTo((x * (2 + minDist)), (x * 2.25));
+            ctx.stroke();
+            ctx.font = (x * 0.5) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(minDist + ' ft.', ((((cWidth / (firstRowMax() - 1)) / 2) + 2) * x), (x * 1.75));
+            ctx.restore();
+        }
+
         //Function to render the desks in a straight row pattern
 
         function renderDesks(ft) {
@@ -295,6 +291,10 @@ function processForm() {
 
         if (neededRows() > 1) {
             drawRowRuler(setFtSize());
+        }
+
+        if (minDesk > 1) {
+            drawDeskRuler(setFtSize());
         }
 
         drawUsedRuler(setFtSize());
@@ -358,6 +358,23 @@ function processForm() {
             ctx.restore();
         }
 
+        //Draws a ruler showing the distance between desks
+
+        function drawDeskRuler(x) {
+            ctx.save();
+            ctx.moveTo((x * 2), (x * 2));
+            ctx.lineTo((x * (2 + (cWidth / (firstRowMaxStag() - 1)))), (x * 2));
+            ctx.moveTo((x * 2), (x * 1.75));
+            ctx.lineTo((x * 2), (x * 2.25));
+            ctx.moveTo((x * (2 + (cWidth / (firstRowMaxStag() - 1)))), (x * 1.75));
+            ctx.lineTo((x * (2 + (cWidth / (firstRowMaxStag() - 1)))), (x * 2.25));
+            ctx.stroke();
+            ctx.font = (x * 0.5) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText((cWidth / (firstRowMaxStag() - 1)) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 2) + 2) * x), (x * 1.75));
+            ctx.restore();
+        }
+
         //Function to render the desks in a staggered pattern
 
         function renderDesks(ft) {
@@ -386,6 +403,10 @@ function processForm() {
         if (neededRowsStag() > 0) {
             drawUsedRuler(setFtSize());
             drawRowRuler(setFtSize());
+        }
+
+        if (minDesk > 1) {
+            drawDeskRuler(setFtSize());
         }
 
         renderDesks(setFtSize());
