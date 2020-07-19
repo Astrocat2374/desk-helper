@@ -49,19 +49,25 @@ function processForm() {
         return Math.floor((cLength / minDist) + 1);
     }
 
-    //Calculates the maximum amount of rows desks on the amount of rows and desks per row
+    //Calculates the maximum amount of desks based on the amount of rows and desks per row
 
     function maxDesk() {
         return firstRowMax() * maxRows();
     }
 
+    //Calculates the needed rows based on the desks per rows and minimum desks
+
     function neededRows() {
         return Math.ceil(minDesk / firstRowMax());
     }
 
+    //Calculates the needed length based on the needed rows and the minimum distance
+
     function neededLength() {
         return minDist * (neededRows() - 1) 
     }
+
+    //Calculates the needed width based on the desks per row and the minimum distance
 
     function neededWidth() {
         return minDist * (firstRowMax() - 1);
@@ -89,10 +95,10 @@ function processForm() {
         return Math.round((2 * (area / x)) * 10) / 10;
     }
 
-    //Calculates the maximum amount of rows based on the length and the distance between the rows. Rounds the given value upwards
+    //Calculates the maximum amount of rows based on the length and the distance between the rows. Rounds the given value downwards
     
     function maxRowsStag() {
-        return Math.ceil((cLength / (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1)) - 1)));
+        return Math.floor(cLength / (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))));
     }
 
     //Counts the maximum amount of desks based on the max row and first and second row amount values
@@ -122,9 +128,65 @@ function processForm() {
         return rowNumber;
     }
 
+    //Calculates the amount of length needed to accomodate all the rows
+
     function neededLengthStag() {
         return (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * (neededRowsStag());
     }
+
+    //----------------------------- Zigzag Desk Calculations -----------------------------
+
+    //Finds the max amount of desks that can fit in a row while complying with the minimum distance
+    
+    function firstRowMaxZig() {
+        return Math.floor(cWidth / minDist);
+    }
+
+    //Finds the max width between desks in a row
+
+    function deskDistZig() {
+        return cWidth / (firstRowMaxZig() - 0.5)
+    }
+
+    //Calculates the distance needed between the rows
+
+    function rowLengthDistZig(x) {
+        let s = (x + (minDist * 2)) / 2;
+        let area = Math.sqrt(s * (s - x) * Math.pow((s - minDist) , 2));
+        return Math.round((2 * (area / x)) * 10) / 10;
+    }
+
+    //Calculates the maximum amount of rows based on the length and the distance between the rows. Rounds the given value downwards
+
+    function maxRowsZig() {
+        return Math.floor(cLength / rowLengthDistZig(deskDistZig()));
+    }
+
+    //Calculates the maximum amount of desks based on the amount of rows and desks per row
+
+    function maxDeskZig() {
+        return firstRowMaxZig() * maxRowsZig();
+    }
+
+    //Calculates the needed rows based on the desks per rows and minimum desks
+
+    function neededRowsZig() {
+        return Math.ceil(minDesk / firstRowMaxZig());
+    }
+
+    //Calculates the amount of length needed to accomodate all the rows
+
+    function neededLengthZig() {
+        return (Math.floor(((neededRowsZig() - 1) * rowLengthDistZig(deskDistZig()) * 10)) / 10);
+    }
+
+    console.log('Max Desks Per Row: ' + firstRowMaxZig());
+    console.log('Desk Distance: ' + deskDistZig());
+    console.log('Distance Between Rows: ' + rowLengthDistZig(deskDistZig()));
+    console.log('Max Rows: ' + maxRowsZig());
+    console.log('Max Desks: ' + maxDeskZig());
+    console.log('Needed Rows: ' + neededRowsZig());
+    console.log('Needed Length: ' + neededLengthZig());
 
     //----------------------------- Rendering and Front End Manipulation -----------------------------
 
