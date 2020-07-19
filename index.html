@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desk App</title>
+</head>
+<body>
+    <link rel="stylesheet" href="styles.css">
+    <form onsubmit='processForm()'>
+        <label for='c-width-input'>Classroom Width (ft):</label><br>
+        <input type='number' id='c-width-input' required><br>
+        <label for='c-length-input'>Classroom Length (ft):</label><br>
+        <input type='number' id='c-length-input' required><br>
+        <label for='min-dist-input'>Minimum Distance Between Desks (ft):</label><br>
+        <input type='number' id='min-dist-input' required><br>
+        <label for='min-desk-input'>Number of Desks:</label><br>
+        <input type='number' id='min-desk-input' required><br><br>
+        <input type='submit' id='submit-button'></button>
+    </form>
+
+    <hr>
+
+    <p id='first-row-max'>Desks in First Row: </p>
+    <p id='second-row-max'>Desks in Second Row: </p>
+    <p id='dist-between-desk'>Distance Between Desks in a Row: </p>
+    <p id='dist-between-rows'>Distance Between Rows: </p>
+    <p id='max-rows'>Maximum Rows: </p>
+    <p id='max-desk'>Maximum Desks: </p>
+    <p id='total-length'>Total Length Needed: </p>
+
+    <hr>
+
+    <canvas id='floor-plan' style='border:1px solid #000000;' width='640' height='360'>
+        <p>Your browser does not support the Canvas Element! Try switching to Chrome or Firefox.</p>
+    </canvas>
+
+    <script src='app.js'></script>
+</body>
+</html>
