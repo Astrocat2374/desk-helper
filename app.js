@@ -153,7 +153,8 @@ function processForm() {
     function rowLengthDistZig(x) {
         let s = (x + (minDist * 2)) / 2;
         let area = Math.sqrt(s * (s - x) * Math.pow((s - minDist) , 2));
-        return Math.round((2 * (area / x)) * 10) / 10;
+        //return Math.round((2 * (area / x)) * 10) / 10;
+        return minDist + 1;
     }
 
     //Calculates the maximum amount of rows based on the length and the distance between the rows. Rounds the given value downwards
