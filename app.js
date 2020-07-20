@@ -49,19 +49,25 @@ function processForm() {
         return Math.floor((cLength / minDist) + 1);
     }
 
-    //Calculates the maximum amount of rows desks on the amount of rows and desks per row
+    //Calculates the maximum amount of desks based on the amount of rows and desks per row
 
     function maxDesk() {
         return firstRowMax() * maxRows();
     }
 
+    //Calculates the needed rows based on the desks per rows and minimum desks
+
     function neededRows() {
         return Math.ceil(minDesk / firstRowMax());
     }
 
+    //Calculates the needed length based on the needed rows and the minimum distance
+
     function neededLength() {
         return minDist * (neededRows() - 1) 
     }
+
+    //Calculates the needed width based on the desks per row and the minimum distance
 
     function neededWidth() {
         return minDist * (firstRowMax() - 1);
@@ -92,16 +98,16 @@ function processForm() {
     //Calculates the maximum amount of rows based on the length and the distance between the rows. Rounds the given value upwards
     
     function maxRowsStag() {
-        return Math.ceil((cLength / (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1)) - 1)));
+        return Math.ceil(cLength / (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))));
     }
 
     //Counts the maximum amount of desks based on the max row and first and second row amount values
     
     function maxDeskStag() {
-        if (maxRows()%2 == 0) {
-            return ((secondRowMaxStag() + firstRowMaxStag()) * maxRowsStag() / 2);
+        if (maxRowsStag() %2 == 0) {
+            return ((secondRowMaxStag() + firstRowMaxStag()) * (maxRowsStag() / 2));
         } else {
-            return (((secondRowMaxStag() + firstRowMaxStag()) * (maxRowsStag() - 1) / 2) + firstRowMaxStag());
+            return (((secondRowMaxStag() + firstRowMaxStag()) * ((maxRowsStag() - 1) / 2)) + firstRowMaxStag());
         }
     }
 
@@ -122,8 +128,57 @@ function processForm() {
         return rowNumber;
     }
 
+    //Calculates the amount of length needed to accomodate all the rows
+
     function neededLengthStag() {
         return (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * (neededRowsStag());
+    }
+
+    //----------------------------- Zigzag Desk Calculations -----------------------------
+
+    //Finds the max amount of desks that can fit in a row while complying with the minimum distance
+    
+    function firstRowMaxZig() {
+        return Math.floor(cWidth / minDist);
+    }
+
+    //Finds the max width between desks in a row
+
+    function deskDistZig() {
+        return cWidth / (firstRowMaxZig() - 0.5)
+    }
+
+    //Calculates the distance needed between the rows
+
+    function rowLengthDistZig(x) {
+        let s = (x + (minDist * 2)) / 2;
+        let area = Math.sqrt(s * (s - x) * Math.pow((s - minDist) , 2));
+        //return Math.round((2 * (area / x)) * 10) / 10;
+        return minDist + 1;
+    }
+
+    //Calculates the maximum amount of rows based on the length and the distance between the rows. Rounds the given value downwards
+
+    function maxRowsZig() {
+        return Math.floor(cLength / rowLengthDistZig(deskDistZig()));
+    }
+
+    //Calculates the maximum amount of desks based on the amount of rows and desks per row
+
+    function maxDeskZig() {
+        return firstRowMaxZig() * maxRowsZig();
+    }
+
+    //Calculates the needed rows based on the desks per rows and minimum desks
+
+    function neededRowsZig() {
+        return Math.ceil(minDesk / firstRowMaxZig());
+    }
+
+    //Calculates the amount of length needed to accomodate all the rows
+
+    function neededLengthZig() {
+        return (Math.floor(((neededRowsZig() - 1) * rowLengthDistZig(deskDistZig()) * 10)) / 10);
     }
 
     //----------------------------- Rendering and Front End Manipulation -----------------------------
@@ -142,6 +197,15 @@ function processForm() {
     function maxDeskCheckStag() {
         if (maxDeskStag() < minDesk) {
             window.alert('There is not enough space for all the desks!\nThe maximum amount of desks in this space is ' + maxDeskStag());
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function maxDeskCheckZig() {
+        if (maxDeskZig() < minDesk) {
+            window.alert('There is not enough space for all the desks!\nThe maximum amount of desks in this space is ' + maxDeskZig());
             return false;
         } else {
             return true;
@@ -236,7 +300,7 @@ function processForm() {
             ctx.rotate(90 * Math.PI/180);
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(neededLength() + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
+            ctx.fillText((Math.round(neededLength() / 10) * 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
             ctx.restore();
         }
 
@@ -275,7 +339,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(neededWidth() + ' ft. (Total Width Needed)', (((neededWidth() / 2) + 2) * x), (x * 1.75));
+            ctx.fillText((Math.round(neededWidth() * 10) / 10) + ' ft. (Total Width Needed)', (((neededWidth() / 2) + 2) * x), (x * 1.75));
             ctx.restore();
         }
 
@@ -293,7 +357,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(minDist + ' ft.', ((((cWidth / (firstRowMax() - 1)) / 2) + 2) * x), (x * 2.75));
+            ctx.fillText((Math.round(minDist * 10) / 10) + ' ft.', ((((cWidth / (firstRowMax() - 1)) / 2) + 2) * x), (x * 2.75));
             ctx.restore();
         }
 
@@ -348,7 +412,7 @@ function processForm() {
             ctx.rotate(90 * Math.PI/180);
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(neededLengthStag() + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
+            ctx.fillText((Math.round(neededLengthStag() / 10) * 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
             ctx.restore();
         }
 
@@ -374,19 +438,19 @@ function processForm() {
 
         //Draws a ruler showing the offset needed for staggering
 
-        function drawStaggerRuler(x) {
+        function drawOffsetRuler(x) {
             ctx.save();
             ctx.globalAlpha = 1;
             ctx.moveTo((x * 2), (x * 3));
-            ctx.lineTo((x * (2 + (cWidth / (firstRowMaxStag() - 1))) / 2), (x * 3));
+            ctx.lineTo((x * (((cWidth / (firstRowMaxStag() - 1)) / 2) + 2)), (x * 3));
             ctx.moveTo((x * 2), (x * 2.75));
             ctx.lineTo((x * 2), (x * 3.25));
-            ctx.moveTo((x * (2 + (cWidth / (firstRowMaxStag() - 1))) / 2), (x * 2.75));
-            ctx.lineTo((x * (2 + (cWidth / (firstRowMaxStag() - 1))) / 2), (x * 3.25));
+            ctx.moveTo((x * (((cWidth / (firstRowMaxStag() - 1)) / 2) + 2)), (x * 2.75));
+            ctx.lineTo((x * (((cWidth / (firstRowMaxStag() - 1)) / 2) + 2)), (x * 3.25));
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(((cWidth / (firstRowMaxStag() - 1)) / 2) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 6) + 2) * x), (x * 2.75));
+            ctx.fillText((Math.round(((cWidth / (firstRowMaxStag() - 1)) / 2) * 10) / 10) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 4) + 2) * x), (x * 2.75));
             ctx.restore();
         }
 
@@ -404,7 +468,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText((cWidth / (firstRowMaxStag() - 1)) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 2) + 2) * x), (x * 1.75));
+            ctx.fillText((Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 2) + 2) * x), (x * 1.75));
             ctx.restore();
         }
 
@@ -419,8 +483,6 @@ function processForm() {
                     drawDesk((ft * (cWidth / (firstRowMaxStag() - 1) * deskNumber) + (ft * 2)), (ft * (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * rowNumber) + (ft * 6));
                     deskNumber ++;
                 } else if (rowNumber % 2 !== 0 && deskNumber < secondRowMaxStag()) {
-                    console.log(deskNumber);
-                    console.log(rowNumber);
                     drawDesk((ft * (cWidth / (firstRowMaxStag() - 1) * deskNumber) + (ft * 2)) + ft * ((cWidth / (firstRowMaxStag() - 1)) / 2), (ft * (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * rowNumber) + (ft * 6));
                     deskNumber ++;
                 } else if (rowNumber % 2 == 0 && deskNumber == firstRowMaxStag() || rowNumber % 2 !== 0 && deskNumber == secondRowMaxStag()) {
@@ -442,13 +504,136 @@ function processForm() {
             drawDeskRuler(setFtSize());
         }
 
+        if(neededRowsStag() > 0 && minDesk > 1) {
+            drawOffsetRuler(setFtSize());
+        }
+
+        renderDesks(setFtSize());
+    }
+
+    function zigDeskRender() {
+        function drawUsedRuler(x) {
+            ctx.save();
+            ctx.globalAlpha = 1;
+            ctx.moveTo((canvas.width - (x * 2)), (x * 6));
+            ctx.lineTo((canvas.width - (x * 2)), (x * (6 + neededLengthZig())));
+            ctx.moveTo((canvas.width - (x * 1.75)), (x * 6));
+            ctx.lineTo((canvas.width - (x * 2.25)), (x * 6));
+            ctx.moveTo((canvas.width - (x * 1.75)), (x * (6 + neededLengthZig())));
+            ctx.lineTo((canvas.width - (x * 2.25)), (x * (6 + neededLengthZig())));
+            ctx.stroke();
+            ctx.translate(canvas.width - (x * 1.5), (((neededLengthZig() / 2) + 6) * x))
+            ctx.rotate(90 * Math.PI/180);
+            ctx.font = (x * 0.5) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText((Math.floor(neededLengthZig() / 10) * 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
+            ctx.restore();
+        }
+
+        //Draws a ruler showing the distance between rows
+
+        function drawRowRuler(x) {
+            ctx.save();
+            ctx.globalAlpha = 1;
+            ctx.moveTo((canvas.width - (x * 3)), (x * 6));
+            ctx.lineTo((canvas.width - (x * 3)), (x * (6 + rowLengthDistZig(deskDistZig()))));
+            ctx.moveTo((canvas.width - (x * 2.75)), (x * 6));
+            ctx.lineTo((canvas.width - (x * 3.25)), (x * 6));
+            ctx.moveTo((canvas.width - (x * 2.75)), (x * (6 + rowLengthDistZig(deskDistZig()))));
+            ctx.lineTo((canvas.width - (x * 3.25)), (x * (6 + rowLengthDistZig(deskDistZig()))));
+            ctx.stroke();
+            ctx.translate(canvas.width - (x * 2.5), (((rowLengthDistZig(deskDistZig()) / 2) + 6) * x));
+            ctx.rotate(90 * Math.PI/180);
+            ctx.font = (x * 0.5) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(rowLengthDistZig(deskDistZig()) + ' ft.', (rowLengthDistZig(deskDistZig()) / 2), (x * 0.25));
+            ctx.restore();
+        }
+
+        //Draws a ruler showing the distance between desks
+
+        function drawDeskRuler(x) {
+            ctx.save();
+            ctx.globalAlpha = 1;
+            ctx.moveTo((x * 2), (x * 2));
+            ctx.lineTo((x * (2 + deskDistZig())), (x * 2));
+            ctx.moveTo((x * 2), (x * 1.75));
+            ctx.lineTo((x * 2), (x * 2.25));
+            ctx.moveTo((x * (2 + deskDistZig())), (x * 1.75));
+            ctx.lineTo((x * (2 + deskDistZig())), (x * 2.25));
+            ctx.stroke();
+            ctx.font = (x * 0.5) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText((Math.round(deskDistZig() * 10) / 10) + ' ft.', (((deskDistZig() / 2) + 2) * x), (x * 1.75));
+            ctx.restore();
+        }
+
+        //Draws a ruler showing the offset needed for staggering
+
+        function drawOffsetRuler(x) {
+            ctx.save();
+            ctx.globalAlpha = 1;
+            ctx.moveTo((x * 2), (x * 3));
+            ctx.lineTo((x * ((deskDistZig() / 2) + 2)), (x * 3));
+            ctx.moveTo((x * 2), (x * 2.75));
+            ctx.lineTo((x * 2), (x * 3.25));
+            ctx.moveTo((x * ((deskDistZig() / 2) + 2)), (x * 2.75));
+            ctx.lineTo((x * ((deskDistZig() / 2) + 2)), (x * 3.25));
+            ctx.stroke();
+            ctx.font = (x * 0.5) + 'px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText((Math.round((deskDistZig() / 2) * 10)) / 10 + ' ft.', (((deskDistZig() / 4) + 2) * x), (x * 2.75));
+            ctx.restore();
+        }
+
+        //Function to render the desks in a zigzag pattern
+
+        function renderDesks(ft) {
+            console.log('Rendering Desks!');
+            let deskNumber = 0;
+            let rowNumber = 0;
+            for (i = 0; i < minDesk; i++){
+                if (rowNumber % 2 == 0 && deskNumber < firstRowMaxZig()) {
+                    drawDesk((ft * ((deskNumber * deskDistZig()) + 2)), (ft * (((rowLengthDistZig(deskDistZig())) * rowNumber) + 6)));
+                    deskNumber ++;
+                } else if (rowNumber % 2 !== 0 && deskNumber < firstRowMaxZig()) {
+                    drawDesk((ft * ((deskNumber * deskDistZig()) + 2 + (deskDistZig() / 2))), (ft * (((rowLengthDistZig(deskDistZig())) * rowNumber) + 6)));
+                    deskNumber ++;
+                } else if (rowNumber % 2 == 0 && deskNumber == firstRowMaxZig() || rowNumber % 2 !== 0 && deskNumber == firstRowMaxZig()) {
+                    deskNumber = 0;
+                    rowNumber++;
+                    i--
+                } else {
+                    return false;
+                }
+            }
+        }
+
+        if (neededRowsZig() > 0) {
+            drawUsedRuler(setFtSize());
+            drawRowRuler(setFtSize());
+        }
+
+        if (minDesk > 1) {
+            drawDeskRuler(setFtSize());
+        }
+
+        if(neededRowsZig() > 0 && minDesk > 1) {
+            drawOffsetRuler(setFtSize());
+        }
+
         renderDesks(setFtSize());
     }
 
     //Runs the calculations and shows the most efficient layout to the user
 
     function runCalc() {
-        if (neededLength() < neededLengthStag()) {
+
+        console.log('Needed Length Straight: ' + neededLength());
+        console.log('Needed Length Staggered: ' + neededLengthStag());
+        console.log('Needed Length Zigzag: ' + neededLengthZig());
+
+        if (neededLength() < neededLengthStag() && neededLength() < neededLengthZig()) {
 
             console.log('Straight');
             document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMax());
@@ -462,31 +647,46 @@ function processForm() {
             universalRender();
             straightDeskRender();
 
-        } else if (neededLengthStag() < neededLength()) {
+        } else if (neededLengthZig() < neededLength() && neededLengthZig() < neededLengthStag()) {
+
+            console.log('Zigzag');
+            document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMaxZig());
+            document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + firstRowMaxZig());
+            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.round(deskDistZig() * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.round(rowLengthDistZig(deskDistZig()) * 10) / 10) + ' ft');
+            document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRowsZig());
+            document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDeskZig());
+            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + (Math.floor(neededLengthZig() * 10) / 10) + ' ft');
+            maxDeskCheckZig();
+            universalRender();
+            zigDeskRender();
+
+        } else if (neededLengthStag() < neededLength() && neededLengthStag() < neededLengthZig()) {
 
             console.log('Staggered');
             document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMaxStag());
             document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + secondRowMaxStag());
-            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (cWidth / (firstRowMaxStag() - 1)) + ' ft');
-            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) + ' ft');
+            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.round((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
             document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRowsStag());
             document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDeskStag());
-            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + neededLengthStag() + ' ft');
+            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + (Math.floor(neededLengthStag() * 10) / 10) + ' ft');
             maxDeskCheckStag();
             universalRender();
             staggeredDeskRender();
 
         } else {
 
-            console.log('Staggered');
+            console.log('Fallback');
             document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMaxStag());
             document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + secondRowMaxStag());
-            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (cWidth / (firstRowMaxStag() - 1)) + ' ft');
-            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) + ' ft');
+            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.round((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
             document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRowsStag());
             document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDeskStag());
-            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + neededLengthStag() + ' ft');
+            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + (Math.floor(neededLengthStag() * 10) / 10) + ' ft');
             maxDeskCheckStag();
+            universalRender();
             staggeredDeskRender();
         }
     }
