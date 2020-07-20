@@ -95,19 +95,19 @@ function processForm() {
         return Math.round((2 * (area / x)) * 10) / 10;
     }
 
-    //Calculates the maximum amount of rows based on the length and the distance between the rows. Rounds the given value downwards
+    //Calculates the maximum amount of rows based on the length and the distance between the rows. Rounds the given value upwards
     
     function maxRowsStag() {
-        return Math.floor(cLength / (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))));
+        return Math.ceil(cLength / (rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))));
     }
 
     //Counts the maximum amount of desks based on the max row and first and second row amount values
     
     function maxDeskStag() {
-        if (maxRows()%2 == 0) {
-            return ((secondRowMaxStag() + firstRowMaxStag()) * maxRowsStag() / 2);
+        if (maxRowsStag() %2 == 0) {
+            return ((secondRowMaxStag() + firstRowMaxStag()) * (maxRowsStag() / 2));
         } else {
-            return (((secondRowMaxStag() + firstRowMaxStag()) * (maxRowsStag() - 1) / 2) + firstRowMaxStag());
+            return (((secondRowMaxStag() + firstRowMaxStag()) * ((maxRowsStag() - 1) / 2)) + firstRowMaxStag());
         }
     }
 
@@ -299,7 +299,7 @@ function processForm() {
             ctx.rotate(90 * Math.PI/180);
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(neededLength() + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
+            ctx.fillText((Math.round(neededLength() / 10) * 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
             ctx.restore();
         }
 
@@ -338,7 +338,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText((Math.floor(neededWidth() * 10) / 10) + ' ft. (Total Width Needed)', (((neededWidth() / 2) + 2) * x), (x * 1.75));
+            ctx.fillText((Math.round(neededWidth() * 10) / 10) + ' ft. (Total Width Needed)', (((neededWidth() / 2) + 2) * x), (x * 1.75));
             ctx.restore();
         }
 
@@ -356,7 +356,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText((Math.floor(minDist * 10) / 10) + ' ft.', ((((cWidth / (firstRowMax() - 1)) / 2) + 2) * x), (x * 2.75));
+            ctx.fillText((Math.round(minDist * 10) / 10) + ' ft.', ((((cWidth / (firstRowMax() - 1)) / 2) + 2) * x), (x * 2.75));
             ctx.restore();
         }
 
@@ -411,7 +411,7 @@ function processForm() {
             ctx.rotate(90 * Math.PI/180);
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(neededLengthStag() + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
+            ctx.fillText((Math.round(neededLengthStag() / 10) * 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
             ctx.restore();
         }
 
@@ -449,7 +449,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText((Math.floor(((cWidth / (firstRowMaxStag() - 1)) / 2) * 10) / 10) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 4) + 2) * x), (x * 2.75));
+            ctx.fillText((Math.round(((cWidth / (firstRowMaxStag() - 1)) / 2) * 10) / 10) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 4) + 2) * x), (x * 2.75));
             ctx.restore();
         }
 
@@ -467,7 +467,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText((Math.floor((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 2) + 2) * x), (x * 1.75));
+            ctx.fillText((Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft.', ((((cWidth / (firstRowMaxStag() - 1)) / 2) + 2) * x), (x * 1.75));
             ctx.restore();
         }
 
@@ -525,7 +525,7 @@ function processForm() {
             ctx.rotate(90 * Math.PI/180);
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(neededLengthZig() + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
+            ctx.fillText((Math.floor(neededLengthZig() / 10) * 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
             ctx.restore();
         }
 
@@ -563,7 +563,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText((Math.floor(deskDistZig() * 10) / 10) + ' ft.', (((deskDistZig() / 2) + 2) * x), (x * 1.75));
+            ctx.fillText((Math.round(deskDistZig() * 10) / 10) + ' ft.', (((deskDistZig() / 2) + 2) * x), (x * 1.75));
             ctx.restore();
         }
 
@@ -581,7 +581,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(((Math.floor(deskDistZig() / 2) * 10) / 10) + ' ft.', (((deskDistZig() / 4) + 2) * x), (x * 2.75));
+            ctx.fillText(((Math.round(deskDistZig() / 2) * 10) / 10) + ' ft.', (((deskDistZig() / 4) + 2) * x), (x * 2.75));
             ctx.restore();
         }
 
@@ -651,11 +651,11 @@ function processForm() {
             console.log('Zigzag');
             document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMaxZig());
             document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + firstRowMaxZig());
-            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.floor(deskDistZig() * 10) / 10) + ' ft');
-            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.floor(rowLengthDistZig(deskDistZig()) * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.round(deskDistZig() * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.round(rowLengthDistZig(deskDistZig()) * 10) / 10) + ' ft');
             document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRowsZig());
             document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDeskZig());
-            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + neededLengthZig() + ' ft');
+            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + (Math.floor(neededLengthZig() * 10) / 10) + ' ft');
             maxDeskCheckZig();
             universalRender();
             zigDeskRender();
@@ -665,11 +665,11 @@ function processForm() {
             console.log('Staggered');
             document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMaxStag());
             document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + secondRowMaxStag());
-            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.floor((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
-            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.floor((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.round((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
             document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRowsStag());
             document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDeskStag());
-            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + neededLengthStag() + ' ft');
+            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + (Math.floor(neededLengthStag() * 10) / 10) + ' ft');
             maxDeskCheckStag();
             universalRender();
             staggeredDeskRender();
@@ -679,11 +679,11 @@ function processForm() {
             console.log('Fallback');
             document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMaxStag());
             document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + secondRowMaxStag());
-            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.floor((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
-            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.floor((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.round((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
             document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRowsStag());
             document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDeskStag());
-            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + neededLengthStag() + ' ft');
+            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + (Math.floor(neededLengthStag() * 10) / 10) + ' ft');
             maxDeskCheckStag();
             universalRender();
             staggeredDeskRender();
