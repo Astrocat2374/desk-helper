@@ -581,7 +581,7 @@ function processForm() {
             ctx.stroke();
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(((Math.floor(deskDistZig() / 2) * 10) / 10) + ' ft.', (((deskDistZig() / 4) + 2) * x), (x * 2.75));
+            ctx.fillText((Math.round((deskDistZig() / 2) * 10)) / 10 + ' ft.', (((deskDistZig() / 4) + 2) * x), (x * 2.75));
             ctx.restore();
         }
 
