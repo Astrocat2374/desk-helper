@@ -142,20 +142,29 @@ function processForm() {
         return Math.floor(cWidth / minDist);
     }
 
+    console.log(firstRowMaxZig());
+
     //Finds the max width between desks in a row
 
     function deskDistZig() {
-        return cWidth / (firstRowMaxZig() - 0.5)
+        return cWidth / (firstRowMaxZig() - 0.5);
     }
+
+    console.log(deskDistZig());
 
     //Calculates the distance needed between the rows
 
     function rowLengthDistZig(x) {
-        let s = (x + (minDist * 2)) / 2;
-        let area = Math.sqrt(s * (s - x) * Math.pow((s - minDist) , 2));
-        //return Math.round((2 * (area / x)) * 10) / 10;
-        return minDist + 1;
+        if((Math.sqrt(-1 * (Math.pow((x / 2), 2) - Math.pow(minDist, 2))) * 2) < minDist) {
+            console.log('Here!');
+            return minDist + 1;
+        } else {
+            return Math.sqrt(-1 * (Math.pow((x / 2), 2) - Math.pow(minDist, 2)));
+        }
+        
     }
+
+    console.log(rowLengthDistZig(deskDistZig()));
 
     //Calculates the maximum amount of rows based on the length and the distance between the rows. Rounds the given value downwards
 
@@ -512,6 +521,9 @@ function processForm() {
     }
 
     function zigDeskRender() {
+
+        //Draws a ruler showing the used distance
+
         function drawUsedRuler(x) {
             ctx.save();
             ctx.globalAlpha = 1;
@@ -526,7 +538,7 @@ function processForm() {
             ctx.rotate(90 * Math.PI/180);
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText((Math.floor(neededLengthZig() / 10) * 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
+            ctx.fillText((Math.round(neededLengthZig() * 10) / 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
             ctx.restore();
         }
 
@@ -546,7 +558,7 @@ function processForm() {
             ctx.rotate(90 * Math.PI/180);
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText(rowLengthDistZig(deskDistZig()) + ' ft.', (rowLengthDistZig(deskDistZig()) / 2), (x * 0.25));
+            ctx.fillText((Math.round(rowLengthDistZig(deskDistZig()) * 10) / 10) + ' ft.', (rowLengthDistZig(deskDistZig()) / 2), (x * 0.25));
             ctx.restore();
         }
 
