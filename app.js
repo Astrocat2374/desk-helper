@@ -1,10 +1,11 @@
 var canvas = document.querySelector('#floor-plan');
 var ctx = canvas.getContext('2d');
-const scaleFactor = 0.5;
 
 function processForm() {
 
     event.preventDefault();
+    
+    var scaleFactor = window.innerWidth / 5000;
     var cWidth = parseInt(document.querySelector('#c-width-input').value);
     var cLength = parseInt(document.querySelector('#c-length-input').value);
     var minDist = parseInt(document.querySelector('#min-dist-input').value);
