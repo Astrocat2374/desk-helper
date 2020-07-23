@@ -649,13 +649,13 @@ function processForm() {
         if (neededLength() < neededLengthStag() && neededLength() < neededLengthZig()) {
 
             console.log('Straight');
-            document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMax());
-            document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + firstRowMax());
-            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + minDist + ' ft');
-            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + minDist + ' ft');
-            document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRows());
-            document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDesk());
-            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + neededLength() + ' ft');
+            document.querySelector('#first-row-max').innerHTML = (firstRowMax());
+            document.querySelector('#second-row-max').innerHTML = (firstRowMax());
+            document.querySelector('#dist-between-desk').innerHTML = (minDist + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = (minDist + ' ft');
+            document.querySelector('#max-rows').innerHTML = (maxRows());
+            document.querySelector('#max-desk').innerHTML = (maxDesk());
+            document.querySelector('#total-length').innerHTML = (neededLength() + ' ft');
             maxDeskCheck();
             universalRender();
             straightDeskRender();
@@ -663,13 +663,13 @@ function processForm() {
         } else if (neededLengthZig() < neededLength() && neededLengthZig() < neededLengthStag()) {
 
             console.log('Zigzag');
-            document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMaxZig());
-            document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + firstRowMaxZig());
-            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.round(deskDistZig() * 10) / 10) + ' ft');
-            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.round(rowLengthDistZig(deskDistZig()) * 10) / 10) + ' ft');
-            document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRowsZig());
-            document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDeskZig());
-            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + (Math.floor(neededLengthZig() * 10) / 10) + ' ft');
+            document.querySelector('#first-row-max').innerHTML = (firstRowMaxZig());
+            document.querySelector('#second-row-max').innerHTML = (firstRowMaxZig());
+            document.querySelector('#dist-between-desk').innerHTML = ((Math.round(deskDistZig() * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = ((Math.round(rowLengthDistZig(deskDistZig()) * 10) / 10) + ' ft');
+            document.querySelector('#max-rows').innerHTML = (maxRowsZig());
+            document.querySelector('#max-desk').innerHTML = (maxDeskZig());
+            document.querySelector('#total-length').innerHTML = ((Math.floor(neededLengthZig() * 10) / 10) + ' ft');
             maxDeskCheckZig();
             universalRender();
             zigDeskRender();
@@ -677,13 +677,13 @@ function processForm() {
         } else if (neededLengthStag() < neededLength() && neededLengthStag() < neededLengthZig()) {
 
             console.log('Staggered');
-            document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMaxStag());
-            document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + secondRowMaxStag());
-            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
-            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.round((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
-            document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRowsStag());
-            document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDeskStag());
-            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + (Math.floor(neededLengthStag() * 10) / 10) + ' ft');
+            document.querySelector('#first-row-max').innerHTML = (firstRowMaxStag());
+            document.querySelector('#second-row-max').innerHTML = (secondRowMaxStag());
+            document.querySelector('#dist-between-desk').innerHTML = ((Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = ((Math.round((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
+            document.querySelector('#max-rows').innerHTML = (maxRowsStag());
+            document.querySelector('#max-desk').innerHTML = (maxDeskStag());
+            document.querySelector('#total-length').innerHTML = ((Math.floor(neededLengthStag() * 10) / 10) + ' ft');
             maxDeskCheckStag();
             universalRender();
             staggeredDeskRender();
@@ -691,13 +691,13 @@ function processForm() {
         } else {
 
             console.log('Fallback');
-            document.querySelector('#first-row-max').innerHTML = ('Desks in First Row: ' + firstRowMaxStag());
-            document.querySelector('#second-row-max').innerHTML = ('Desks in Second Row: ' + secondRowMaxStag());
-            document.querySelector('#dist-between-desk').innerHTML = ('Distance Between Desks in a Row: ' + (Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
-            document.querySelector('#dist-between-rows').innerHTML = ('Distance Between Rows: ' + (Math.round((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
-            document.querySelector('#max-rows').innerHTML = ('Maximum Rows: ' + maxRowsStag());
-            document.querySelector('#max-desk').innerHTML = ('Maximum Desks: ' + maxDeskStag());
-            document.querySelector('#total-length').innerHTML = ('Total Length Needed: ' + (Math.floor(neededLengthStag() * 10) / 10) + ' ft');
+            document.querySelector('#first-row-max').innerHTML = (firstRowMaxStag());
+            document.querySelector('#second-row-max').innerHTML = (secondRowMaxStag());
+            document.querySelector('#dist-between-desk').innerHTML = ((Math.round((cWidth / (firstRowMaxStag() - 1)) * 10) / 10) + ' ft');
+            document.querySelector('#dist-between-rows').innerHTML = ((Math.round((rowLengthDistStag(cWidth / (firstRowMaxStag() - 1))) * 10) / 10) + ' ft');
+            document.querySelector('#max-rows').innerHTML = (maxRowsStag());
+            document.querySelector('#max-desk').innerHTML = (maxDeskStag());
+            document.querySelector('#total-length').innerHTML = ((Math.floor(neededLengthStag() * 10) / 10) + ' ft');
             maxDeskCheckStag();
             universalRender();
             staggeredDeskRender();
