@@ -42,13 +42,11 @@ th, td {
 }
 
 table {
-    align-self: flex-end;
     margin: 15px;
     width: 100%
 }
 
 form {
-    align-self: flex-start;
     margin: 15px;
     text-align: center;
     width: 100%;
@@ -66,8 +64,6 @@ form {
 
 #flex-container {
     display: flex;
-    align-items: baseline;
-    justify-content: space-evenly;
     width: 100%;
     height: 100%;
     flex-flow: row wrap;
@@ -81,6 +77,6 @@ form {
 }
 
 #floor-plan-div {
-    flex-grow: 2;
+    text-align: center;
     margin: 15px;
 }

@@ -1,11 +1,30 @@
 var canvas = document.querySelector('#floor-plan');
 var ctx = canvas.getContext('2d');
+var scaleFactorInit = window.innerWidth / 4000;
+
+function drawCanvas(x) {
+    canvas.width = (2000 * x);
+    canvas.height = (1500 * x);
+}
+
+drawCanvas(scaleFactorInit);
+
+//Draws words on the canvas for decoration
+
+function drawWords(x) {
+    console.log(x * 100)
+    ctx.font = (x * 100) + 'px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Floor Plan Will Generate Here', canvas.width / 2, canvas.height / 2);
+}
+
+drawWords(scaleFactorInit);
 
 function processForm() {
 
     event.preventDefault();
     
-    var scaleFactor = window.innerWidth / 5000;
+    var scaleFactor = window.innerWidth / 4000;
     var cWidth = parseInt(document.querySelector('#c-width-input').value);
     var cLength = parseInt(document.querySelector('#c-length-input').value);
     var minDist = parseInt(document.querySelector('#min-dist-input').value);
@@ -310,7 +329,7 @@ function processForm() {
             ctx.rotate(90 * Math.PI/180);
             ctx.font = (x * 0.5) + 'px Arial';
             ctx.textAlign = 'center';
-            ctx.fillText((Math.round(neededLength() / 10) * 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
+            ctx.fillText((Math.round(neededLength() * 10) / 10) + ' ft. (Total Length Needed)', (cLength / 2), (x * 0.25));
             ctx.restore();
         }
 
@@ -707,13 +726,3 @@ function processForm() {
     runCalc();
 
 }
-
-//Draws words on the canvas for decoration
-
-function drawWords() {
-    ctx.font = '24px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('Floor Plan Will Generate Here', 320, 180);
-}
-
-drawWords();
