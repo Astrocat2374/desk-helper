@@ -3,48 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desk App</title>
+    <title>Desk Helper App</title>
 </head>
 <body>
-    <link rel="stylesheet" href="styles.css">
-    <h3>Instructions</h3>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+
+    <h1 id='title'>Desk Helper</h1>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!--<h3>Instructions</h3>
     <p><b>Classroom Width:</b> One side of the total desk area. The program will prioritize using up this entire side to shorten the overall length.</p>
     <p><b>Classroom Length:</b> The side meant to be compressed. The program will try to minimize this side as much as possible.</p>
     <p><b>Minimum Distance Between Desks:</b> The minimum distance required between each desk.</p>
     <p><b>Number of Desks:</b> The number of desks you are trying to fit into the space. The program will find the most efficient layout based on the width and will let you know if the length is too short for all the desks.</p>
     <p><b>Note:</b> The app works assuming you all measurements are from the center of desks. This means that the classroom length and width should be appropriately shortened to allow for the edges of desks to be away from walls. A feature will be implemented soon to make this process easier.</p>
+    -->
+    <div id='flex-container'>
+        <div id='flex-container-2'>
 
-    <hr>
+            <form onsubmit='processForm()'>
+                <h3>Needed Info</h3>
+                <label for='c-width-input'>Classroom Width (ft):</label><br>
+                <input type='number' id='c-width-input' required><br><br>
+                <label for='c-length-input'>Classroom Length (ft):</label><br>
+                <input type='number' id='c-length-input' required><br><br>
+                <label for='min-dist-input'>Minimum Distance Between Desks (ft):</label><br>
+                <input type='number' id='min-dist-input' required><br><br>
+                <label for='min-desk-input'>Number of Desks:</label><br>
+                <input type='number' id='min-desk-input' required><br><br><br>
+                <input type='submit' id='submit-button'></button><br>
+            </form>
 
-    <h3>Needed Info</h3>
-    <form onsubmit='processForm()'>
-        <label for='c-width-input'>Classroom Width (ft):</label><br>
-        <input type='number' id='c-width-input' required><br>
-        <label for='c-length-input'>Classroom Length (ft):</label><br>
-        <input type='number' id='c-length-input' required><br>
-        <label for='min-dist-input'>Minimum Distance Between Desks (ft):</label><br>
-        <input type='number' id='min-dist-input' required><br>
-        <label for='min-desk-input'>Number of Desks:</label><br>
-        <input type='number' id='min-desk-input' required><br><br>
-        <input type='submit' id='submit-button'></button>
-    </form>
-
-    <hr>
-
-    <h3>Output Info</h3>
-    <p id='first-row-max'>Desks in First Row: </p>
-    <p id='second-row-max'>Desks in Second Row: </p>
-    <p id='dist-between-desk'>Distance Between Desks in a Row: </p>
-    <p id='dist-between-rows'>Distance Between Rows: </p>
-    <p id='max-rows'>Maximum Rows: </p>
-    <p id='max-desk'>Maximum Desks: </p>
-    <p id='total-length'>Total Length Needed: </p>
-
-    <hr>
-    <h3>Floor Plan</h3>
-    <canvas id='floor-plan' style='border:1px solid #000000;' width='640' height='360'>
-        <p>Your browser does not support the Canvas Element! Try switching to Chrome or Firefox.</p>
-    </canvas>
+            <table>
+                <tr>
+                    <th>Parameters</th>
+                    <th>Output Info</th>
+                </tr>
+                <tr>
+                    <td class='table-column-1'>Desks in First Row:</td>
+                    <td id='first-row-max'></td>
+                </tr>
+                <tr>
+                    <td class='table-column-1'>Desks in Second Row:</td>
+                    <td id='second-row-max'></td>
+                </tr>
+                <tr>
+                    <td class='table-column-1'>Distance Between Desks in a Row:</td>
+                    <td id='dist-between-desk'></td>
+                </tr>
+                <tr>
+                    <td class='table-column-1'>Distance Between Rows:</td>
+                    <td id='dist-between-rows'></td>
+                </tr>
+                <tr>
+                    <td class='table-column-1'>Maximum Rows:</td>
+                    <td id='max-rows'></td>
+                </tr>
+                <tr>
+                    <td class='table-column-1'>Maximum Desks:</td>
+                    <td id='max-desk'></td>
+                </tr>
+                <tr>
+                    <td class='table-column-1'>Total Length Needed:</td>
+                    <td id='total-length'></td>
+                </tr>
+            </table>
+        </div>
+        <div id='floor-plan-div'>
+            <h3>Floor Plan</h3>
+            <canvas id='floor-plan' style='border:1px solid #000000;'>
+                <p>Your browser does not support the Canvas Element! Try switching to Chrome or Firefox.</p>
+            </canvas>
+        </div>
+    </div>
 
     <script src='app.js'></script>
 </body>
