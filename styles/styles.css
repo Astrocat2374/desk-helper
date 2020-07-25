@@ -70,9 +70,7 @@ body {
 
 #instructions {
     padding: 10px;
-    overflow-x: hidden;
-    overflow-y: auto;
-    border: 1px solid black;
+    overflow-x: auto;
 }
 
 #instruction-close {
