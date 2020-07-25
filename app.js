@@ -12,7 +12,6 @@ drawCanvas(scaleFactorInit);
 //Draws words on the canvas for decoration
 
 function drawWords(x) {
-    console.log(x * 100)
     ctx.font = (x * 100) + 'px Arial';
     ctx.textAlign = 'center';
     ctx.fillText('Floor Plan Will Generate Here', canvas.width / 2, canvas.height / 2);

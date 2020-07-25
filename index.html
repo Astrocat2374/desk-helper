@@ -1,36 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <title>Desk Helper App</title>
 </head>
 <body>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link href="styles.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css2?family=Roboto&display=swap' rel='stylesheet'>
+    <link href='styles/styles.css' rel='stylesheet'>
 
-    <h1 id='title'>Desk Helper</h1>
-    <br>
+    <span id='topbar'>
+        <h1 id='title'>Desk Helper</h1>
+        <button id='instruction-button'>?</button>
+    </span>
+
     <br>
     <br>
     <br>
     <br>
 
-    <!--<h3>Instructions</h3>
-    <p><b>Classroom Width:</b> One side of the total desk area. The program will prioritize using up this entire side to shorten the overall length.</p>
-    <p><b>Classroom Length:</b> The side meant to be compressed. The program will try to minimize this side as much as possible.</p>
-    <p><b>Minimum Distance Between Desks:</b> The minimum distance required between each desk.</p>
-    <p><b>Number of Desks:</b> The number of desks you are trying to fit into the space. The program will find the most efficient layout based on the width and will let you know if the length is too short for all the desks.</p>
-    <p><b>Note:</b> The app works assuming you all measurements are from the center of desks. This means that the classroom length and width should be appropriately shortened to allow for the edges of desks to be away from walls. A feature will be implemented soon to make this process easier.</p>
-    -->
     <div id='flex-container'>
         <div id='flex-container-2'>
 
             <form onsubmit='processForm()'>
                 <h3>Needed Info</h3>
-                <label for='c-width-input'>Classroom Width (ft):</label><br>
+                <label for='c-width-input'>Desk Area Width (ft):</label><br>
                 <input type='number' id='c-width-input' required><br><br>
-                <label for='c-length-input'>Classroom Length (ft):</label><br>
+                <label for='c-length-input'>Desk Area Length (ft):</label><br>
                 <input type='number' id='c-length-input' required><br><br>
                 <label for='min-dist-input'>Minimum Distance Between Desks (ft):</label><br>
                 <input type='number' id='min-dist-input' required><br><br>
@@ -82,6 +78,29 @@
         </div>
     </div>
 
+    <div id='instruction-modal'>
+        <div id='modal-content'>
+            <div id='modal-topbar'>
+                <h1 id='modal-title'>Instructions</h1>
+                <button id='instruction-close'>&times;</button>
+            </div>
+            <div id='instructions'>
+                <h3>Desk Area Width:</h3>
+                <p>One side of the total desk area. The program will prioritize using up this entire side to shorten the overall length.</p>
+                <h3>Desk Area Length:</h3>
+                <p>The side meant to be compressed. The program will try to minimize this side as much as possible.</p>
+                <h3>Minimum Distance Between Desks:</h3>
+                <p>The minimum distance required between each desk.</p>
+                <h3>Number of Desks:</h3>
+                <p>The number of desks you are trying to fit into the space. The program will find the most efficient layout based on the width and will let you know if the length is too short for all the desks.</p>
+                <h3>Note:</h3>
+                <p>The app works assuming all measurements are from the center of desks. This means that the classroom length and width should be appropriately shortened to allow for the edges of desks to be away from walls. A feature will be implemented soon to make this process easier.</p>
+            </div>
+        </div>
+
+    </div>
+
     <script src='app.js'></script>
+    <script src='styles/styles.js'></script>
 </body>
 </html>
