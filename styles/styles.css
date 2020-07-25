@@ -1,0 +1,153 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #EAF6FF;
+    color: #232528;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+#topbar {
+    color: #EAF6FF;
+    background-color: #009FFD;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+}
+
+#title {
+    margin-left: 20px;
+}
+
+#instruction-button {
+    margin-left: auto;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-right: 20px;
+    border: none;
+    border-radius: 6px;
+    color: #009FFD;
+    font-weight: bold;
+    font-size: 24px;
+    overflow: auto;
+}
+
+#instruction-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+#modal-content {
+    background-color: #EAF6FF;
+    margin: 10% auto;
+    width: 80%;
+    min-width: 250px;
+}
+
+#modal-topbar {
+    display: flex;
+    background-color: #009FFD;
+    padding: 3px;
+}
+
+#modal-title {
+    margin-left: 10px;
+    color: #EAF6FF;
+}
+
+#instructions {
+    padding: 10px;
+    overflow-x: auto;
+}
+
+#instruction-close {
+    margin-left: auto;
+    height: 30px;
+    width: 30px;
+    font-weight: bold;
+    font-size: 24px;
+    text-decoration: none;
+    color: #EAF6FF;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+h3 {
+    color: #FFA400;
+}
+
+hr {
+    color: #009FFD;
+}
+
+th {
+    background-color: #FFA400;
+}
+
+table, th, td {
+    border: 1px solid #232528;
+    border-collapse: collapse;
+}
+
+.table-column-1 {
+    width: 250px;
+    text-align: end;
+}
+
+th, td {
+    padding: 10px;
+}
+
+table {
+    margin: 15px;
+    width: 100%
+}
+
+form {
+    margin: 15px;
+    text-align: center;
+    width: 100%;
+}
+
+#submit-button {
+    text-decoration: none;
+    padding: 10px;
+    background-color: #FFA400;
+    border-radius: 4px;
+    border: none;
+    text-align: center;
+    font-size: 20px;
+}
+
+#flex-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-flow: row wrap;
+}
+
+#flex-container-2 {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    margin: 15px;
+}
+
+#floor-plan-div {
+    text-align: center;
+    margin: 15px;
+}
